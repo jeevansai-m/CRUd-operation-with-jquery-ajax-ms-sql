@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="ref/angular.js"></script>
+    <script src="ref/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="Scripts.js"></script>
+    <script src="Scripts2.js"></script>
+</head>
+<body onload="openTab(event, 'Form')">
+    <center>
+        <nav class="tab navbar navbar-expand-sm bg-dark navbar-dark">
+            <ul class="navbar-nav">
+                <li class="tablinks nav-item">
+                    <a class="nav-link" onclick="openTab(event, 'Form')">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="tablinks nav-link" onclick="openTab(event, 'Record')" href="#">Record</a>
+                </li>
+                <li class="nav-item">
+                    <a class="tablinks nav-link" onclick="openTab(event, 'Search')" href="#">Search</a>
+                </li>
+            </ul>
+        </nav>
+    </center>
+
+
+    <!-- -----------------------------firsttab------------------------ -->
+    <div id="Form" class="tabcontent">
+        <div>
+            <div class="col-lg-5 mx-auto">
+                <div class="card ">
+                    <div class="card-header">
+                        <form autocomplete="off">
+
+                            <input type="text" hidden id="Id" value="0">
+                            <div class="form-group">
+                                <label for="txtname">Name:</label>
+                                <input type="text" class="form-control" placeholder="Enter Name" id="Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="txtemail">E-mail:</label>
+                                <input type="text" class="form-control" placeholder="Enter email" id="Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="Pnum">Phone NO:</label>
+                                <input type="text" class="form-control" placeholder="Enter number" id="Pnum">
+                            </div>
+                            <div class="form-group">
+                                <label>Country:</label>
+                                <select class="form-control" id="Country">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>State:</label>
+                                <select class="form-control" id="State">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Districts:</label>
+                                <select class="form-control" id="District">
+                                </select>
+                            </div>
+                            <div class="form-group form-radio">
+                                <label>Gender:</label>&nbsp&nbsp
+                                <label class="form-radio-label">
+                                    <input class="form-radio-input" value="male" type="radio" id="male" name="Gender"> male
+                                </label>&nbsp&nbsp<label class="form-radio-label" value="male">
+                                    <input class="form-radio-input" type="radio" id="female" name="Gender" value="female"> female
+                                </label>&nbsp&nbsp<label class="form-radio-label">
+                                    <input class="form-radio-input" type="radio" id="other" name="Gender" value="other"> other
+                                </label>
+                            </div>
+                            <!-- action button controll submit and Clear -->
+                            <div class="form-action-buttons">
+                                <input type="button" id="Btn_Insert" value="Submit" class="btn btn-primary" />
+                                <input type="button" value="Clear" onclick="ResetClear()" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- -----------------------------Secound tab------------------------ -->
+    <div id="Record" class="tabcontent">
+        <div class="container">
+            <table  class="tablemanager table table-striped">
+                <thead>
+                    <tr>
+                        <th class="disableSort">NAME</th>
+                        <th class="disableSort">EMAIL-ID</th>
+                        <th class="disableSort">PHONE NUMBER</th>
+                        <th class="disableSort">COUNTRY</th>
+                        <th class="disableSort">STATE</th>
+                        <th class="disableSort">DISTRICT</th>
+                        <th class="disableSort">GENDER</th>
+                        <th class="disableSort">STATUS</th>
+                        <th class="disableFilterBy">Controls</th>
+                    </tr>
+                </thead>
+                <tbody id="tblrecord">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- -----------------------------third tab------------------------ -->
+
+    <div id="Search" class="tabcontent">
+        <br />
+        <div class="container">
+            <form class="form-inline">
+                <a><b>Search:</b></a>
+                <div class="form-group">
+                    &nbsp<label for="txtsearchname">Name:</label>
+                    <input type="text" class="form-control" id="txtsearchname" placeholder="search Name" name="txtsearchname">
+                </div>
+                <div class="form-group">
+                    &nbsp<label for="txtsearchemail">E-mail:</label>
+                    <input type="text" class="form-control" id="txtsearchemail" placeholder="search E-mail" name="txtsearchemail">
+                </div>
+                <div class="form-group">
+                    &nbsp<label>Status:</label>
+                    <select class="dropdown" id="drpstatussearch">
+                        <option value="">ALL</option>
+                        <option value="Active">Active</option>
+                        <option value="InActive">InActive</option>
+                    </select>
+                </div>&nbsp&nbsp
+                <input type="button" onclick="Get_Search()" class="btn btn-primary" id="btnsearch" value="Submit">&nbsp &nbsp
+                <input type="button" class="btn btn-primary" onclick="btn_search_Clear()" id="btnsearchclear" value="Clear">
+            </form>
+
+        </div><br />
+        <div class="container" id="Tbl_Search">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>NAME</th>
+                        <th>EMAIL-ID</th>
+                        <th>PHONE NUMBER</th>
+                        <th>COUNTRY</th>
+                        <th>STATE</th>
+                        <th>DISTRICT</th>
+                        <th>GENDER</th>
+                        <th>STATUS</th>
+                        <th>EDIT/DELETE</th>
+                    </tr>
+                </thead>
+                <tbody id="Search_Table">
+                </tbody>
+            </table>
+        </div>
+
+    <!-- External jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="./js/jquery-1.12.3.min.js"></script> -->
+    <script src="tableManager.js"></script>
+    <script type="text/javascript">
+        // basic usage
+        $('.tablemanager').tablemanager({
+            disable: ["last"],
+            appendFilterby: true,
+            debug: true,
+            vocabulary: {
+                voc_filter_by: 'Filter By',
+                voc_type_here_filter: 'Filter...',
+                voc_show_rows: 'Rows Per Page'
+            },
+            pagination: true,
+            showrows: [3, 5, 10, 20, 50],
+            disableFilterBy: [0,3]
+        });
+        // $('.tablemanager').tablemanager();
+    </script>
+    <script>
+        try {
+            fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' })).then(function (response) {
+                return true;
+            }).catch(function (e) {
+                var carbonScript = document.createElement("script");
+                carbonScript.src = "//cdn.carbonads.com/carbon.js?serve=CK7DKKQU&placement=wwwjqueryscriptnet";
+                carbonScript.id = "_carbonads_js";
+                document.getElementById("carbon-block").appendChild(carbonScript);
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    </script>
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-36251023-1']);
+        _gaq.push(['_setDomainName', 'jqueryscript.net']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+    </div>
+
+</body>
+</html>
